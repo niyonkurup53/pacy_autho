@@ -25,7 +25,7 @@ function authenticateToken(req, res, next) {
 }
 // Simple root route
 app.get('/', (req, res) => {
-  res.send('✅ Server is running!');
+  res.send('✅ pacy server is good working ');
 });
 
 app.use('/auth', authRoutes);

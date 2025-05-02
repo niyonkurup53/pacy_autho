@@ -77,5 +77,20 @@ router.patch('/:pid', (req, res) => {
     res.json({ message: 'Product partially updated' });
   });
 });
+// Get product by ID
+router.get('/:pid', (req, res) => {
+  const pid = req.params.pid;
+  const query = 'SELECT * FROM products WHERE pid = ?';
+  db.get(query, [pid], (err, row) => {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).json({ message: 'Error retrieving product' });
+    }
+    if (!row) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    res.json(row);
+  });
+});
 
 module.exports = router;
