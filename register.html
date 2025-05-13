@@ -24,7 +24,7 @@
       const email = form.get('email');
       const password = form.get('password');
 
-      const res = await fetch('/register', {
+      const res = await fetch('https://pacy-autho.onrender.com/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
