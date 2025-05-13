@@ -1,10 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors'); // ✅ Import cors
 const productRoutes = require('./products');
 const authRoutes = require('./auth');
 const jwt = require('jsonwebtoken');
 
 const app = express();
+
+// ✅ Enable CORS for all routes
+app.use(cors());
+
 app.use(bodyParser.json());
 
 const SECRET_KEY = 'abefghijklmnopqrstuvwxyz1_234567890jdfyhgtuasjgfdsbfeadbmfjdfbvchjdbv_edhs';
@@ -23,15 +28,16 @@ function authenticateToken(req, res, next) {
     next();
   });
 }
+
 // Simple root route
 app.get('/', (req, res) => {
-  res.send('✅ pacy server is good working ');
+  res.send('✅ Server is running!');
 });
 
 app.use('/auth', authRoutes);
 app.use('/products', authenticateToken, productRoutes);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log('Server is running on http://localhost:${PORT}');
 });
